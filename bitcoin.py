@@ -17,15 +17,15 @@ bitcoin.head()
 
 bitcoin.describe()
 # %% make histogram plot
-import matplotlib
-import matplotlib.pyplot as plt
+# import matplotlib
+# import matplotlib.pyplot as plt
 
-#bitcoin['Closing Price (USD)','Date'].plot(legend=True, figsize=(10, 5), title='Bitcoin Price', label='Closing Price (USD)')
+# #bitcoin['Closing Price (USD)','Date'].plot(legend=True, figsize=(10, 5), title='Bitcoin Price', label='Closing Price (USD)')
 
-bitcoin.plot( y = 'Closing Price (USD)', legend=True, figsize=(10, 5), title='Bitcoin Daily Price', label = 'Bitcoin')
-plt.xlabel('Date')
-plt.ylabel('Closing Price (USD)')
-plt.savefig('bitcoinprice.png')
+# bitcoin.plot( y = 'Closing Price (USD)', legend=True, figsize=(10, 5), title='Bitcoin Daily Price', label = 'Bitcoin')
+# plt.xlabel('Date')
+# plt.ylabel('Closing Price (USD)')
+# plt.savefig('bitcoinprice.png')
 
 
 # plt.figure(figsize=(10,5))
@@ -56,16 +56,16 @@ SPchange = SP500.pct_change()
 import matplotlib
 import matplotlib.pyplot as plt
 
-ax = plt.gca()
+# ax = plt.gca()
 
-bitcoin.plot(kind='line', y = 'Closing Price (USD)', legend=True, figsize=(10, 5), label = 'Bitcoin', ax = ax)
-stockindex.plot(kind='line', y = 'Close', legend=True, figsize=(10, 5), label = 'S&P 500', ax = ax, color = 'red')
-plt.xlabel('Date')
-plt.ylabel('Closing Price (USD)')
-plt.show()
+# bitcoin.plot(kind='line', y = 'Closing Price (USD)', legend=True, figsize=(10, 5), label = 'Bitcoin', ax = ax)
+# stockindex.plot(kind='line', y = 'Close', legend=True, figsize=(10, 5), label = 'S&P 500', ax = ax, color = 'red')
+# plt.xlabel('Date')
+# plt.ylabel('Closing Price (USD)')
+# plt.show()
 
 
-# %%
+# # %%
 plt.figure(figsize=(10,8))
 top = plt.subplot2grid((4,4), (0, 0), rowspan=3, colspan=4)
 bottom = plt.subplot2grid((4,4), (3,0), rowspan=3, colspan=4)
@@ -170,62 +170,62 @@ goldchange = goldindex.pct_change()
 
 #%%
 
-############### BTC and Gold daily Price #######################
+# ############### BTC and Gold daily Price #######################
 
-import matplotlib
-import matplotlib.pyplot as plt
-ax = plt.gca()
+# import matplotlib
+# import matplotlib.pyplot as plt
+# ax = plt.gca()
 
-bitcoin.plot(kind='line', y = 'Closing Price (USD)', legend=True, figsize=(10, 5), label = 'Bitcoin', ax = ax)
-goldindex.plot(kind='line', y = 'Value', legend=True, figsize=(10, 5), label = 'Gold', ax = ax, color = 'red')
-plt.xlabel('Date')
-plt.ylabel('Closing Price (USD)')
-plt.show()
+# bitcoin.plot(kind='line', y = 'Closing Price (USD)', legend=True, figsize=(10, 5), label = 'Bitcoin', ax = ax)
+# goldindex.plot(kind='line', y = 'Value', legend=True, figsize=(10, 5), label = 'Gold', ax = ax, color = 'red')
+# plt.xlabel('Date')
+# plt.ylabel('Closing Price (USD)')
+# plt.show()
 
-ax = plt.gca()
-BTCchange.plot(kind='line', y = 'Closing Price (USD)', legend=True, figsize=(10, 5), label = 'Bitcoin', ax = ax)
-goldchange.plot(kind='line', y = 'Value', legend=True, figsize=(10, 5), label = 'Gold', ax = ax, color = 'red')
-plt.xlabel('Date')
-plt.ylabel('Percentage(%)')
-plt.show()
+# ax = plt.gca()
+# BTCchange.plot(kind='line', y = 'Closing Price (USD)', legend=True, figsize=(10, 5), label = 'Bitcoin', ax = ax)
+# goldchange.plot(kind='line', y = 'Value', legend=True, figsize=(10, 5), label = 'Gold', ax = ax, color = 'red')
+# plt.xlabel('Date')
+# plt.ylabel('Percentage(%)')
+# plt.show()
 
-fig = plt.figure()
-# Divide the figure into a 2x1 grid, and give me the first section
-ax1 = fig.add_subplot(211)
+# fig = plt.figure()
+# # Divide the figure into a 2x1 grid, and give me the first section
+# ax1 = fig.add_subplot(211)
 
-# Divide the figure into a 2x1 grid, and give me the second section
-ax2 = fig.add_subplot(212)
+# # Divide the figure into a 2x1 grid, and give me the second section
+# ax2 = fig.add_subplot(212)
 
-BTC.plot( y='Closing Price (USD)', ax=ax1, legend=False, figsize=(10, 8))
-ax1.xaxis.set_label_text("")
-ax1.set_title("Bitcoin Data")
-ax1.set_ylabel('Closing Price (USD)')
+# BTC.plot( y='Closing Price (USD)', ax=ax1, legend=False, figsize=(10, 8))
+# ax1.xaxis.set_label_text("")
+# ax1.set_title("Bitcoin Data")
+# ax1.set_ylabel('Closing Price (USD)')
 
-goldindex.plot( y='Value', kind='line', ax=ax2, figsize=(10, 8))
-ax2.yaxis.set_label_text("")
-ax2.set_title("Gold Data")
-ax2.set_ylabel('Value (USD)')
-fig.subplots_adjust(hspace=0.3)
+# goldindex.plot( y='Value', kind='line', ax=ax2, figsize=(10, 8))
+# ax2.yaxis.set_label_text("")
+# ax2.set_title("Gold Data")
+# ax2.set_ylabel('Value (USD)')
+# fig.subplots_adjust(hspace=0.3)
 
-#%%
+# #%%
 
-fig = plt.figure()
-# Divide the figure into a 2x1 grid, and give me the first section
-ax1 = fig.add_subplot()
+# fig = plt.figure()
+# # Divide the figure into a 2x1 grid, and give me the first section
+# ax1 = fig.add_subplot()
 
-# Divide the figure into a 2x1 grid, and give me the second section
-ax2 = ax1.twinx()
+# # Divide the figure into a 2x1 grid, and give me the second section
+# ax2 = ax1.twinx()
 
-BTC.plot( y='Closing Price (USD)', ax=ax1, figsize=(10, 8), legend=True, label = 'BTC')
-ax1.xaxis.set_label_text("")
-ax1.set_title("Bitcoin Index vs Gold Index")
-ax1.set_ylabel('Closing Price (USD)')
-ax1.legend(loc=1)
+# BTC.plot( y='Closing Price (USD)', ax=ax1, figsize=(10, 8), legend=True, label = 'BTC')
+# ax1.xaxis.set_label_text("")
+# ax1.set_title("Bitcoin Index vs Gold Index")
+# ax1.set_ylabel('Closing Price (USD)')
+# ax1.legend(loc=1)
 
-goldindex.plot( y='Value', kind='line', ax=ax2, figsize=(10, 8), label = 'Gold', color = 'red')
-ax2.yaxis.set_label_text("")
-ax2.set_ylabel('Value (USD)')
-ax2.legend(loc=2)
+# goldindex.plot( y='Value', kind='line', ax=ax2, figsize=(10, 8), label = 'Gold', color = 'red')
+# ax2.yaxis.set_label_text("")
+# ax2.set_ylabel('Value (USD)')
+# ax2.legend(loc=2)
 
 #%%
 
