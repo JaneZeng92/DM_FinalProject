@@ -11,7 +11,6 @@ import pandas as pd
 import csv
 
 bitcoin = pd.read_csv(filepath,index_col=1)
-# bitcoin.columns = bitcoin.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('(', '').str.replace(')', '')
 
 bitcoin.head()
 
@@ -28,8 +27,8 @@ bitcoin.describe()
 # plt.savefig('bitcoinprice.png')
 
 
-# plt.figure(figsize=(10,5))
-# sns.distplot(CMT['Adj Close'].dropna(), bins=50, color='purple')
+
+
 # %% 
 ######################## import S&P500 stock price ##########################3
 
