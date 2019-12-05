@@ -12,9 +12,12 @@ import csv
 
 bitcoin = pd.read_csv(filepath,index_col=1)
 
-bitcoin.head()
 
-bitcoin.describe()
+print(bitcoin.head())
+
+print(bitcoin.describe())
+
+print(bitcoin.dtypes)
 # %% make histogram plot
 # import matplotlib
 # import matplotlib.pyplot as plt
@@ -27,8 +30,6 @@ bitcoin.describe()
 # plt.savefig('bitcoinprice.png')
 
 
-
-
 # %% 
 ######################## import S&P500 stock price ##########################3
 
@@ -36,8 +37,8 @@ path2add = 'D:\\Study\\GWU\\Data Mining\\project'
 filepath = os.path.join( dirpath, path2add ,'^GSPC.csv')
 stockindex = pd.read_csv(filepath,index_col=0)
 
-stockindex.head()
-
+print(stockindex.head())
+print(stockindex.dtypes)
 
 # %% 
 
@@ -65,40 +66,40 @@ import matplotlib.pyplot as plt
 
 
 # # %%
-plt.figure(figsize=(10,8))
-top = plt.subplot2grid((4,4), (0, 0), rowspan=3, colspan=4)
-bottom = plt.subplot2grid((4,4), (3,0), rowspan=3, colspan=4)
-top.plot(BTC.index, BTC['Closing Price (USD)']) #CMT.index gives the dates
-bottom.plot(SP500.index, SP500['Close']) 
+# plt.figure(figsize=(10,8))
+# top = plt.subplot2grid((4,4), (0, 0), rowspan=3, colspan=4)
+# bottom = plt.subplot2grid((4,4), (3,0), rowspan=3, colspan=4)
+# top.plot(BTC.index, BTC['Closing Price (USD)']) #CMT.index gives the dates
+# bottom.plot(SP500.index, SP500['Close']) 
  
-# set the labels
-top.axes.get_xaxis().set_visible(False)
-top.set_title('Bitcoin Data')
-top.set_ylabel('Closing Price (USD)')
-bottom.set_title('S&P 500 Data')
-bottom.set_ylabel('Close')
-ax = plt.gca()
-ax.xaxis.set_major_locator(matplotlib.dates.YearLocator())
-ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y'))
+# # set the labels
+# top.axes.get_xaxis().set_visible(False)
+# top.set_title('Bitcoin Data')
+# top.set_ylabel('Closing Price (USD)')
+# bottom.set_title('S&P 500 Data')
+# bottom.set_ylabel('Close')
+# ax = plt.gca()
+# ax.xaxis.set_major_locator(matplotlib.dates.YearLocator())
+# ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y'))
 #ax.tick_params(pad=20)
 
-fig = plt.figure()
-# Divide the figure into a 2x1 grid, and give me the first section
-ax1 = fig.add_subplot()
+# fig = plt.figure()
+# # Divide the figure into a 2x1 grid, and give me the first section
+# ax1 = fig.add_subplot()
 
-# Divide the figure into a 2x1 grid, and give me the second section
-ax2 = ax1.twinx()
+# # Divide the figure into a 2x1 grid, and give me the second section
+# ax2 = ax1.twinx()
 
-BTC.plot( y='Closing Price (USD)', ax=ax1, figsize=(10, 8), legend=True, label = 'BTC')
-ax1.xaxis.set_label_text("")
-ax1.set_title("Bitcoin Index vs S&P 500")
-ax1.set_ylabel('Closing Price (USD)')
-ax1.legend(loc=1)
+# BTC.plot( y='Closing Price (USD)', ax=ax1, figsize=(10, 8), legend=True, label = 'BTC')
+# ax1.xaxis.set_label_text("")
+# ax1.set_title("Bitcoin Index vs S&P 500")
+# ax1.set_ylabel('Closing Price (USD)')
+# ax1.legend(loc=1)
 
-SP500.plot( y='Close', kind='line', ax=ax2, figsize=(10, 8), label = 'S&P 500', color = 'red')
-ax2.yaxis.set_label_text("")
-ax2.set_ylabel('Closing Price (USD)')
-ax2.legend(loc=2)
+# SP500.plot( y='Close', kind='line', ax=ax2, figsize=(10, 8), label = 'S&P 500', color = 'red')
+# ax2.yaxis.set_label_text("")
+# ax2.set_ylabel('Closing Price (USD)')
+# ax2.legend(loc=2)
 
 #%%
 
@@ -138,23 +139,23 @@ ax2.tick_params(axis='y', colors="red")
 # plt.ylabel('Percentage(%)')
 # plt.show()
 
-fig = plt.figure()
-# Divide the figure into a 2x1 grid, and give me the first section
-ax1 = fig.add_subplot(211)
+# fig = plt.figure()
+# # Divide the figure into a 2x1 grid, and give me the first section
+# ax1 = fig.add_subplot(211)
 
-# Divide the figure into a 2x1 grid, and give me the second section
-ax2 = fig.add_subplot(212)
+# # Divide the figure into a 2x1 grid, and give me the second section
+# ax2 = fig.add_subplot(212)
 
-BTCchange.plot( y='Closing Price (USD)', ax=ax1, legend=False, figsize=(15, 8))
-ax1.xaxis.set_label_text("")
-ax1.set_title("Bitcoin Data")
-ax1.set_ylabel('Price Change %')
+# BTCchange.plot( y='Closing Price (USD)', ax=ax1, legend=False, figsize=(15, 8))
+# ax1.xaxis.set_label_text("")
+# ax1.set_title("Bitcoin Data")
+# ax1.set_ylabel('Price Change %')
 
-SPchange.plot( y='Close', kind='line', ax=ax2, figsize=(15, 8))
-ax2.yaxis.set_label_text("")
-ax2.set_title("S&P 500 Data")
-ax2.set_ylabel('Price Change %')
-fig.subplots_adjust(hspace=0.3)
+# SPchange.plot( y='Close', kind='line', ax=ax2, figsize=(15, 8))
+# ax2.yaxis.set_label_text("")
+# ax2.set_title("S&P 500 Data")
+# ax2.set_ylabel('Price Change %')
+# fig.subplots_adjust(hspace=0.3)
 
 # %% 
 
@@ -164,6 +165,7 @@ filepath = os.path.join( dirpath, path2add ,'WGC-GOLD_DAILY_USD.csv')
 goldindex= pd.read_csv(filepath, index_col=0)
 
 goldindex.head()
+goldindex.dtypes
 
 goldchange = goldindex.pct_change()
 
@@ -273,10 +275,39 @@ ax2.set_title("Gold Data")
 ax2.set_ylabel('Value Change %')
 fig.subplots_adjust(hspace=0.3)
 
+# #%%
+# from statsmodels.graphics.tsaplots import plot_acf
+# from matplotlib import pyplot
+
+# plot_acf(BTC)
+# pyplot.show()
+
+# #%%
+
+# from statsmodels.graphics.tsaplots import plot_pacf
+# plot_pacf(BTC, lags=100)
+# pyplot.show()
+#%%
+################ Try to find correlation#######################
+
+from statsmodels.formula.api import ols
+
+BTCSP = pd.merge(BTC, SP500, on='Date')
+BTCSP = BTCSP.rename(columns={"Closing Price (USD)": "btc", "Close": "sp500"}).dropna()
+
+modelBTCSP = ols(formula='btc ~ sp500', data=BTCSP).fit()
+print( modelBTCSP.summary() )
+
+##### gold
+BTCGOLD = pd.merge(BTC, goldindex, on='Date')
+BTCGOLD = BTCGOLD.rename(columns={"Closing Price (USD)": "btc", "Value": "gold"}).dropna()
+
+modelBTCGOLD = ols(formula='btc ~ gold', data=BTCGOLD).fit()
+print( modelBTCGOLD.summary() )
 
 
 # %%
-################ Try to find correlation #######################
+################ Try to find correlation of change %#######################
 
 #####sp500
 from statsmodels.formula.api import ols
@@ -293,9 +324,25 @@ BTCGOLDchange = BTCGOLDchange.rename(columns={"Closing Price (USD)": "btc", "Val
 modelBTCGOLD = ols(formula='btc ~ gold', data=BTCGOLDchange).fit()
 print( modelBTCGOLD.summary() )
 
+#%%
+from fbprophet import Prophet
+
+df_prophetb = Prophet()
+
+
 
 # %%
 
+
+
+# %%
+
+
+# %%
+
+
+
+# %%
 
 
 # %%
