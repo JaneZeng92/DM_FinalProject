@@ -329,28 +329,9 @@ print( modelBTCGOLD.summary() )
 
 #%%
 
-import os
-dirpath = os.getcwd() # print("current directory is : " + dirpath)
-path2add = 'D:\\Study\\GWU\\Data Mining\\project'
-filepath = os.path.join( dirpath, path2add ,'BTC_USD.csv')
-import numpy as np
-import pandas as pd
-import csv
-
-bitcoin = pd.read_csv(filepath)
-
-
-print(bitcoin.head())
-
-print(bitcoin.describe())
-
-print(bitcoin.dtypes)
-
-#%%
-
 # import os
 # dirpath = os.getcwd() # print("current directory is : " + dirpath)
-# path2add = 'D:\\Study\\GWU\\Data Mining\\project'
+# path2add = 'C:\\Users\\Admin\\Documents\\GitHub\\DM_FinalProject'
 # filepath = os.path.join( dirpath, path2add ,'BTC_USD.csv')
 # import numpy as np
 # import pandas as pd
@@ -358,12 +339,25 @@ print(bitcoin.dtypes)
 
 # bitcoin = pd.read_csv(filepath)
 
+
+# print(bitcoin.head())
+
+# print(bitcoin.describe())
+
+# print(bitcoin.dtypes)
+
+
+
 #%%
 forecast_out = 10 #'n=30' days
 BTC['Prediction'] = BTC[['Closing Price (USD)']].shift(-forecast_out)
 print(BTC.tail(10))
 
 #%%
+
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
 ### Create the independent data set (X)  #######
 # Convert the dataframe to a numpy array
 X = np.array(BTC.drop(['Prediction'],1))
@@ -383,9 +377,6 @@ print(y)
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 # %%
-from sklearn.linear_model import LinearRegression
-from sklearn.svm import SVR
-from sklearn.model_selection import train_test_split
 
 svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1) 
 svr_rbf.fit(x_train, y_train)
