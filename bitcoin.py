@@ -349,7 +349,7 @@ print( modelBTCGOLD.summary() )
 
 
 #%%
-forecast_out = 10 #'n=30' days
+forecast_out = 5 #'n=30' days
 BTC['Prediction'] = BTC[['Closing Price (USD)']].shift(-forecast_out)
 print(BTC.tail(10))
 
@@ -374,7 +374,7 @@ print(y)
 
 
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
 # %%
 
@@ -405,10 +405,10 @@ print(x_forecast)# %%
 
 # Print linear regression model predictions for the next '30' days
 lr_prediction = lr.predict(x_forecast)
-print(lr_prediction)
+print(np.asarray(lr_prediction).reshape(5,1))
 # Print support vector regressor model predictions for the next '30' days
-svm_prediction = svr_rbf.predict(x_forecast)
-print(svm_prediction)
+# svm_prediction = svr_rbf.predict(x_forecast)
+# print(np.asarray(svm_prediction).reshape(5,1))
 
 
 # %%
