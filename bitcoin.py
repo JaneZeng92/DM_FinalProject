@@ -4,7 +4,7 @@
 ######################### import the bitcoin data ############################
 import os
 dirpath = os.getcwd() # print("current directory is : " + dirpath)
-path2add = 'D:\\Study\\GWU\\Data Mining\\project'
+path2add = 'C:\\Users\\Admin\\Documents\\GitHub\\DM_FinalProject'
 filepath = os.path.join( dirpath, path2add ,'BTC_USD.csv')
 import numpy as np
 import pandas as pd
@@ -33,11 +33,12 @@ print(bitcoin.dtypes)
 # %% 
 ######################## import S&P500 stock price ##########################3
 
-path2add = 'D:\\Study\\GWU\\Data Mining\\project'
-filepath = os.path.join( dirpath, path2add ,'^GSPC.csv')
+path2add = 'C:\\Users\\Admin\\Documents\\GitHub\\DM_FinalProject'
+filepath = os.path.join( dirpath, path2add ,'GSPC.csv')
 stockindex = pd.read_csv(filepath,index_col=0)
 
-print(stockindex.head())
+print(stockindex.head(10))
+
 print(stockindex.dtypes)
 
 # %% 
@@ -160,7 +161,7 @@ ax2.tick_params(axis='y', colors="red")
 # %% 
 
 ############################ import gold index ###########################
-path2add = 'D:\\Study\\GWU\\Data Mining\\project'
+path2add = 'C:\\Users\\Admin\\Documents\\GitHub\\DM_FinalProject'
 filepath = os.path.join( dirpath, path2add ,'WGC-GOLD_DAILY_USD.csv')
 goldindex= pd.read_csv(filepath, index_col=0)
 
@@ -257,23 +258,23 @@ ax2.legend(loc=2)
 #%%
 ################ BTC and Gold daily change percentage #######################
 
-fig = plt.figure()
-# Divide the figure into a 2x1 grid, and give me the first section
-ax1 = fig.add_subplot(211)
+# fig = plt.figure()
+# # Divide the figure into a 2x1 grid, and give me the first section
+# ax1 = fig.add_subplot(211)
 
-# Divide the figure into a 2x1 grid, and give me the second section
-ax2 = fig.add_subplot(212)
+# # Divide the figure into a 2x1 grid, and give me the second section
+# ax2 = fig.add_subplot(212)
 
-BTCchange.plot( y='Closing Price (USD)', ax=ax1, legend=False, figsize=(15, 8))
-ax1.xaxis.set_label_text("")
-ax1.set_title("Bitcoin Data")
-ax1.set_ylabel('Price Change %')
+# BTCchange.plot( y='Closing Price (USD)', ax=ax1, legend=False, figsize=(15, 8))
+# ax1.xaxis.set_label_text("")
+# ax1.set_title("Bitcoin Data")
+# ax1.set_ylabel('Price Change %')
 
-goldchange.plot( y='Value', kind='line', ax=ax2, figsize=(15, 8))
-ax2.yaxis.set_label_text("")
-ax2.set_title("Gold Data")
-ax2.set_ylabel('Value Change %')
-fig.subplots_adjust(hspace=0.3)
+# goldchange.plot( y='Value', kind='line', ax=ax2, figsize=(15, 8))
+# ax2.yaxis.set_label_text("")
+# ax2.set_title("Gold Data")
+# ax2.set_ylabel('Value Change %')
+# fig.subplots_adjust(hspace=0.3)
 
 # #%%
 # from statsmodels.graphics.tsaplots import plot_acf
@@ -379,7 +380,7 @@ print(y)
 
 
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 # %%
 from sklearn.linear_model import LinearRegression
