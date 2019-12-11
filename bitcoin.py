@@ -11,6 +11,7 @@ import pandas as pd
 import csv
 
 bitcoin = pd.read_csv(filepath,index_col=1)
+# bitcoin = bitcoin.loc[bitcoin['Closing Price (USD)'] > 3000]
 
 
 print(bitcoin.head())
@@ -43,19 +44,42 @@ print(stockindex.dtypes)
 
 # %% 
 
+############################ import gold index ###########################
+path2add = 'C:\\Users\\Admin\\Documents\\GitHub\\DM_FinalProject'
+filepath = os.path.join( dirpath, path2add ,'WGC-GOLD_DAILY_USD.csv')
+goldindex= pd.read_csv(filepath, index_col=0)
+
+goldindex.head()
+goldindex.dtypes
+
+goldindex['change'] = goldindex.pct_change()
+
+
+# %% 
+
 # Subtseting the date with price and calculate the change %
 BTC = bitcoin[['Closing Price (USD)']]
-BTCchange = BTC.pct_change()
+BTC['change'] = BTC.pct_change()
 
 # Subtseting the date with price and calculate the change %
 SP500 = stockindex[['Close']]
-SPchange = SP500.pct_change()
+SP500['change'] = SP500.pct_change()
+
 
 # %% 
 ##################### combine bitcoin and stock price into one plot ####################333
 
 import matplotlib
 import matplotlib.pyplot as plt
+
+
+BTC['change'].hist( bins = 50, label = 'BTC', figsize = (10,8), alpha = 0.5)
+SP500['change'].hist( bins = 50, label = 'S&P 500', alpha = 0.5)
+goldindex['change'].hist( bins = 50, label = 'Gold', alpha = 0.5)
+plt.legend()
+
+
+#%%
 
 # ax = plt.gca()
 
@@ -158,17 +182,6 @@ ax2.tick_params(axis='y', colors="red")
 # ax2.set_ylabel('Price Change %')
 # fig.subplots_adjust(hspace=0.3)
 
-# %% 
-
-############################ import gold index ###########################
-path2add = 'C:\\Users\\Admin\\Documents\\GitHub\\DM_FinalProject'
-filepath = os.path.join( dirpath, path2add ,'WGC-GOLD_DAILY_USD.csv')
-goldindex= pd.read_csv(filepath, index_col=0)
-
-goldindex.head()
-goldindex.dtypes
-
-goldchange = goldindex.pct_change()
 
 #%%
 
@@ -299,7 +312,6 @@ BTCSP = BTCSP.rename(columns={"Closing Price (USD)": "btc", "Close": "sp500"}).d
 modelBTCSP = ols(formula='btc ~ sp500', data=BTCSP).fit()
 print( modelBTCSP.summary() )
 
-#%%
 
 ##### gold
 BTCGOLD = pd.merge(BTC, goldindex, on='Date')
@@ -312,6 +324,15 @@ print( modelBTCGOLD.summary() )
 # %%
 ################ Try to find correlation of change %#######################
 
+BTC1 = bitcoin[['Closing Price (USD)']]
+BTCchange = BTC1.pct_change()
+
+# Subtseting the date with price and calculate the change %
+SP5001 = stockindex[['Close']]
+SPchange = SP5001.pct_change()
+
+goldchange1 = goldindex.pct_change()
+#%%
 #####sp500
 from statsmodels.formula.api import ols
 BTCSPchange = pd.merge(BTCchange, SPchange, on='Date')
@@ -321,11 +342,21 @@ modelBTCSP = ols(formula='btc ~ sp500', data=BTCSPchange).fit()
 print( modelBTCSP.summary() )
 
 ##### gold
-BTCGOLDchange = pd.merge(BTCchange, goldchange, on='Date')
+BTCGOLDchange = pd.merge(BTCchange, goldchange1, on='Date')
 BTCGOLDchange = BTCGOLDchange.rename(columns={"Closing Price (USD)": "btc", "Value": "gold"}).dropna()
 
 modelBTCGOLD = ols(formula='btc ~ gold', data=BTCGOLDchange).fit()
 print( modelBTCGOLD.summary() )
+
+#%%
+
+##### gold and sp500
+
+GSP = pd.merge(SPchange, goldchange1, on='Date')
+GSP= GSP.rename(columns={"Close": "SP500", "Value": "gold"}).dropna()
+
+modelGSP = ols(formula='SP500 ~ gold', data=GSP).fit()
+print( modelGSP.summary() )
 
 #%%
 
@@ -350,8 +381,8 @@ print( modelBTCGOLD.summary() )
 
 #%%
 forecast_out = 5 #'n=30' days
-BTC['Prediction'] = BTC[['Closing Price (USD)']].shift(-forecast_out)
-print(BTC.tail(10))
+BTC1['Prediction'] = BTC1[['Closing Price (USD)']].shift(-forecast_out)
+print(BTC1.tail(10))
 
 #%%
 
@@ -360,21 +391,21 @@ from sklearn.svm import SVR
 from sklearn.model_selection import train_test_split
 ### Create the independent data set (X)  #######
 # Convert the dataframe to a numpy array
-X = np.array(BTC.drop(['Prediction'],1))
+X = np.array(BTC1.drop(['Prediction'],1))
 
 #Remove the last '30' rows
 X = X[:-forecast_out]
 print(X)
 
 
-y = np.array(BTC['Prediction'])
+y = np.array(BTC1['Prediction'])
 # Get all of the y values except the last '30' rows
 y = y[:-forecast_out]
 print(y)
 
 
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # %%
 
@@ -397,7 +428,7 @@ print("lr confidence: ", lr_confidence)
 
 #%%
 
-x_forecast = np.array(BTC.drop(['Prediction'],1))[-forecast_out:]
+x_forecast = np.array(BTC1.drop(['Prediction'],1))[-forecast_out:]
 print(x_forecast)# %%
 
 
@@ -405,11 +436,12 @@ print(x_forecast)# %%
 
 # Print linear regression model predictions for the next '30' days
 lr_prediction = lr.predict(x_forecast)
-print(np.asarray(lr_prediction).reshape(5,1))
+arr = lr_prediction[::-1] 
+
+print(np.asarray(arr).reshape(5,1))
 # Print support vector regressor model predictions for the next '30' days
 # svm_prediction = svr_rbf.predict(x_forecast)
 # print(np.asarray(svm_prediction).reshape(5,1))
-
 
 # %%
 #https://medium.com/@randerson112358/predict-stock-prices-using-python-machine-learning-53aa024da20a
