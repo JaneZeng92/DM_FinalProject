@@ -380,7 +380,7 @@ print( modelGSP.summary() )
 
 
 #%%
-forecast_out = 5 #'n=30' days
+forecast_out = 10 #'n=30' days
 BTC1['Prediction'] = BTC1[['Closing Price (USD)']].shift(-forecast_out)
 print(BTC1.tail(10))
 
@@ -407,16 +407,15 @@ print(y)
 
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-# %%
 
-svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1) 
-svr_rbf.fit(x_train, y_train)
+# svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1) 
+# svr_rbf.fit(x_train, y_train)
 
 
-# Testing Model: Score returns the coefficient of determination R^2 of the prediction. 
-# The best possible score is 1.0
-svm_confidence = svr_rbf.score(x_test, y_test)
-print("svm confidence: ", svm_confidence)
+# # Testing Model: Score returns the coefficient of determination R^2 of the prediction. 
+# # The best possible score is 1.0
+# svm_confidence = svr_rbf.score(x_test, y_test)
+# print("svm confidence: ", svm_confidence)
 
 # %%
 lr = LinearRegression()
@@ -438,10 +437,12 @@ print(x_forecast)# %%
 lr_prediction = lr.predict(x_forecast)
 arr = lr_prediction[::-1] 
 
-print(np.asarray(arr).reshape(5,1))
+print(np.asarray(arr).reshape(10,1))
 # Print support vector regressor model predictions for the next '30' days
 # svm_prediction = svr_rbf.predict(x_forecast)
 # print(np.asarray(svm_prediction).reshape(5,1))
 
 # %%
-#https://medium.com/@randerson112358/predict-stock-prices-using-python-machine-learning-53aa024da20a
+
+
+# %%
